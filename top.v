@@ -28,8 +28,8 @@ module top(
     seven_seg display (
         .Y(Y), //output Y value
         .select(sw[3:0]), //operation select
-        .seg(seg), //display seg
-        .anode(an) //anode digit select
+        .seg(seg[6:0]), //display seg
+        .anode(an[3:0]) //anode digit select
     );  
 
 endmodule
