@@ -19,12 +19,18 @@ module top(
         .reset(btnU),
         .do(btnC),
         .select(sw[3:0]),
+        // Y is not shown on the LEDs, but rather
+        // as the left and left center 7 segs
         .Y(ledY)
         .ledA(led[15:8]),
         .ledB(led[7:0])
     );
 
 
+    // The seven seg display is close, but you are
+    // missing the clock divider module to drive it.
+    // Since you missed lab 10, I'll grade this without
+    // that in mind, and only on your ALU.
     seven_seg display (
         .Y(Y), //output Y value
         .select(sw[3:0]), //operation select
