@@ -12,6 +12,28 @@ module top(
     wire [7:0] Y;  
     reg [7:0] A, B; 
 
+    twocomplimentneg NEG (
+        .A(A),
+        .Twos(Y),
+        .select(sw[3:0]),
+        .reset(btnU)
+	);
+
+    twocomplimentsub SUB (
+        .A(A),
+        .B(B),
+        .Twos(Y),
+        .select(sw[3:0]),
+        .reset(btnU)
+	);
+
+    twocomplimentadd ADD (
+        .A(A),
+        .B(B),
+        .Twos(Y),
+        .select(sw[3:0]),
+        .reset(btnU)
+	);
     
     operations alu (  //good
         .A(A),
@@ -30,10 +52,11 @@ module top(
     // The seven seg display is close, but you are
     // missing the clock divider module to drive it.
     // Since you missed lab 10, I'll grade this without
-    // that in mind, and only on your ALU.
+    // that in mind, and only on your ALU. done
     seven_seg display (
         .Y(Y), //output Y value
         .select(sw[3:0]), //operation select
+        .clk(clk),
         .seg(seg[6:0]), //display seg
         .anode(an[3:0]) //anode digit select
     );  

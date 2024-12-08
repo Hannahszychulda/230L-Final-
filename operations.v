@@ -1,8 +1,8 @@
 module operations(
-    // I would make A, B, Y all output regs of this module
+    // I would make A, B, Y all output regs of this module done
     // since it generates the values for all three
-    input [7:0] A,        // A data
-    input [7:0] B,        // B data
+    output reg [7:0] A,        // A data
+    output reg [7:0] B,        // B data
     input reset, 
     input do, 
     input clk,
@@ -22,8 +22,9 @@ module operations(
         end else if (do) begin
         case (select)
             // The operations ADD, SUB, and NEG should all use week 6 modules
-            4'b0000: Y <= A + B;            // ADD
-            4'b0001: Y <= A - B;            // SUB
+            //ADD(ones comp), NEG(twos comp)
+            //4'b0000: Y <= A + B;            // ADD, added to twos comp add
+            //4'b0001: Y <= A - B;            // SUB, added to twos comp sub
             4'b0010: Y <= A << 1;           // SHL 
             4'b0011: Y <= A >> 1;           // SHR 
             // Comparison is close. We want to return:
@@ -39,7 +40,7 @@ module operations(
             4'b1001: Y <= ~(A | B);         // NOR
             4'b1010: Y <= ~(A ^ B);         // XNOR
             4'b1011: Y <= ~A;               // NOT
-            4'b1100: Y <= -A;               // NEG 
+            //4'b1100: Y <= -A;               // NEG added into twos comp file
             // STO should be Y into A, not A into A
             4'b1101: A <= A;               // STO 
             // Swap and load are...swapped
