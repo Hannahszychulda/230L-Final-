@@ -1,6 +1,4 @@
 module operations(
-    // I would make A, B, Y all output regs of this module done
-    // since it generates the values for all three
     output reg [7:0] A,        // A data
     output reg [7:0] B,        // B data
     input reset, 
@@ -21,18 +19,11 @@ module operations(
 
         end else if (do) begin
         case (select)
-            // The operations ADD, SUB, and NEG should all use week 6 modules
-            //ADD(ones comp), NEG(twos comp)
             //4'b0000: Y <= A + B;            // ADD, added to twos comp add
             //4'b0001: Y <= A - B;            // SUB, added to twos comp sub
             4'b0010: Y <= A << 1;           // SHL 
             4'b0011: Y <= A >> 1;           // SHR 
-            // Comparison is close. We want to return:
-            // 0 if equivalent
-            // 1 if A > B
-            // -1 if A < B
-            // Your code here can only return 0 and -1
-            4'b0100: Y <= (A == B) ? 8'hFF : 8'h00;  // CMP (Comparison)
+            4'b0100: Y <= (A == B) ? 8'h00 : ((A > B) ? 8'h01 : 8'hFF);  // CMP (Comparison)
             4'b0101: Y <= A & B;            // AND
             4'b0110: Y <= A | B;            // OR
             4'b0111: Y <= A ^ B;            // XOR
@@ -41,16 +32,9 @@ module operations(
             4'b1010: Y <= ~(A ^ B);         // XNOR
             4'b1011: Y <= ~A;               // NOT
             //4'b1100: Y <= -A;               // NEG added into twos comp file
-            // STO should be Y into A, not A into A
-            4'b1101: A <= A;               // STO 
-            // Swap and load are...swapped
-            // These assignments to A and B are the
-            // reason I say to make A, B, Y output regs
-            4'b1110: A <= B;               // SWP
-            4'b1111: {A,B} <= {B,A};        // LOAD
-            // Don't need a default case -- you've handled all 16 possible combinations
-            // of four bits
-            default: Y <= 8'b00000000;      // Default
+            4'b1101: A <= Y;               // STO 
+            4'b1110: {A,B} <= {B,A};    // SWP
+            4'b1111: A <= B;            // LOAD
         endcase
     end
     end 

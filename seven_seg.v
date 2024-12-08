@@ -15,10 +15,7 @@ module seven_seg(
         clkdiv <= clkdiv + 1;
 
     initial begin
-        // close... but you actually
-        // need to display 0-F (hexidecimal) done
-        // There is example code in Week 10
-        // 7-segment display 0-F
+
         segs[0] = 7'b0000001;  // 0
         segs[1] = 7'b1001111;  // 1
         segs[2] = 7'b0010010;  // 2
