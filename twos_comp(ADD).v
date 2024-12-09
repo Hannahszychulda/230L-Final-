@@ -80,6 +80,7 @@ always @(posedge clk or posedge reset) begin
             Y <= 8'b0;
 
         end else if (do) begin
+            // missing the remaining end/case syntax here
         case (select)
         4'b0000: Y <= Twos; //set y equal to A+B
 
