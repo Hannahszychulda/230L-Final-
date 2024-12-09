@@ -12,12 +12,24 @@ module top(
     wire [7:0] Y;  
     reg [7:0] A, B; 
 
+    // All of these modules assigning to Y will
+    // mean multiple-driven net
     twocomplimentneg NEG (
         .A(A),
         .Twos(Y),
         .select(sw[3:0]),
         .reset(btnU)
 	);
+
+    // Each should output to its own wire:
+    // NEG_OUT
+    // SUB_OUT
+    // ADD_OUT
+    // or something of the like
+    // And those should become inputs to your
+    // ALU that are assigned into Y based on
+    // the selected operation
+    // otherwise, right idea.
 
     twocomplimentsub SUB (
         .A(A),
